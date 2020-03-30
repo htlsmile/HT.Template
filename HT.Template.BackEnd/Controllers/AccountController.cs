@@ -134,8 +134,8 @@ namespace HT.Template.BackEnd.Controllers
             var handler = new JwtSecurityTokenHandler();
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                new Claim(ClaimTypes.Name,user.UserName)
+                new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName,user.UserName),
             });
             var now = DateTime.Now;
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(JwtExtensions.SecurityKey), SecurityAlgorithms.HmacSha256);

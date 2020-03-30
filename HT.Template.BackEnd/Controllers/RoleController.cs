@@ -3,6 +3,8 @@ using HT.Template.BackEnd.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +29,7 @@ namespace HT.Template.BackEnd.Controllers
         public async Task<IActionResult> RefreshWebAPI()
         {
             var webAPIs = from webAPI in PermissionHandler.GetWebAPIs()
-                          where !Repository.Exist<WebAPI>(p => p.Equals(webAPI))
+                          where !Repository.Exist<WebAPI>(p => p.Method == webAPI.Method && p.Path == webAPI.Path)
                           select webAPI;
             var count = webAPIs.Count();
             if (count > 0)
@@ -39,7 +41,16 @@ namespace HT.Template.BackEnd.Controllers
             {
                 return Ok(new APIResult(true, "没有发现新的WebAPI"));
             }
+        }
 
+        [HttpGet(nameof(GetRoles))]
+        public IEnumerable<Role> GetRoles() => roleManager.Roles.ToList();
+
+        [HttpPost(nameof(CreateRole))]
+        public async Task<IActionResult> CreateRole(Role role)
+        {
+            var result = await roleManager.CreateAsync(role);
+            return result.Succeeded ? CreatedAtAction(nameof(GetRoles), role) : (IActionResult)BadRequest();
         }
     }
 }

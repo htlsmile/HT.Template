@@ -16,7 +16,7 @@ namespace HT.Template.BackEnd
         /// </summary>
         private static readonly bool EnableSotfDelete = false;
 
-        public AppRepository(AppDbContext context) => Context = context ?? new AppDbContext();
+        public AppRepository(AppDbContext context = null) => Context = context ?? new AppDbContext();
 
         public AppDbContext Context { get; }
 

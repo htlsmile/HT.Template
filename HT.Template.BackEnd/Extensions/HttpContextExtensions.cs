@@ -32,8 +32,8 @@ namespace HT.Template.BackEnd
                 if (handler.CanReadToken(token))
                 {
                     IEnumerable<Claim> claims = handler.ReadJwtToken(token).Claims;
-                    var sid = claims?.FirstOrDefault(p => p.Type == ClaimTypes.Sid)?.Value;
-                    var name = claims?.FirstOrDefault(p => p.Type == ClaimTypes.Name)?.Value;
+                    var sid = claims?.FirstOrDefault(p => p.Type == JwtRegisteredClaimNames.Sid)?.Value;
+                    var name = claims?.FirstOrDefault(p => p.Type == JwtRegisteredClaimNames.UniqueName)?.Value;
                     if (!string.IsNullOrWhiteSpace(sid))
                     {
                         info.UserId = new Guid(sid);

@@ -49,7 +49,7 @@ namespace HT.Template.BackEnd
                                      from rc in dbContext.RoleClaims.Where(p => p.RoleId == ur.RoleId)
                                      where rc.ClaimType == ClaimTypes.AuthenticationMethod && rc.ClaimValue == webAPI.Id.ToString()
                                      select rc;
-                    if (userClaims.Any() || roleClaims.Any())
+                    if (userClaims.ToList().Count > 0 || roleClaims.ToList().Count > 0)
                     {
                         context.Succeed(requirement);
                     }

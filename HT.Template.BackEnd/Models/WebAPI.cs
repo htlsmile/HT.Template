@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace HT.Template.BackEnd.Models
 {
-    public class WebAPI : Entity, IEquatable<WebAPI>
+    public class WebAPI : Entity
     {
         /// <summary>
         /// 接口名称
@@ -33,8 +33,6 @@ namespace HT.Template.BackEnd.Models
         [Required]
         [Display(Name = "路由")]
         public string Path { get; set; }
-
-        public bool Equals([AllowNull] WebAPI other) => other == null ? false : Method == other.Method && Path == other.Path;
 
     }
 }

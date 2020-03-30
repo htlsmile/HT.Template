@@ -40,6 +40,6 @@ namespace HT.Template.BackEnd
                 webBuilder.UseSerilog();
                 webBuilder.UseUrls();
             })
-            .ConfigureServices(services => services.AddHostedService<TaskManager>());
+            .ConfigureServices(services => services.AddHostedService<AppTaskManager>());
     }
 }
